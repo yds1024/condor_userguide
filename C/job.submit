@@ -1,0 +1,20 @@
+Universe   = vanilla
+executable = x.run
+requestMemory = 1024
+request_GPUs = 1
++SHORT_JOB=true
+# Requirements = CUDACapability > 6.0
+# Requirements = (TARGET.Machine=="taishan") || (TARGET.Machine=="huashan") || (TARGET.Machine=="hengshan")
+
+Log        = logs/job_$(Cluster).$(Process).log
+Output     = logs/job_$(Cluster).$(Process).out
+Error      = logs/job_$(Cluster).$(Process).error
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = x.run
+#transfer_executable = false
+initialdir = /mnt/lab1/dsyan/tmp/userguide/C
+
+Arguments = 10
+Queue

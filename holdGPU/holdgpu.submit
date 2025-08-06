@@ -1,0 +1,35 @@
+Universe   = vanilla
+executable = holdgpu.sh
+
+# 请求资源
+request_GPUs = 1
+request_CPUs = 1
+requestMemory = 1024
+
+# 指定运行的机器（修改为您想要的机器名）
+Requirements = (TARGET.Machine=="huashan")
+
+# 可选的机器列表：
+# Requirements = (TARGET.Machine=="taishan")
+# Requirements = (TARGET.Machine=="huashan")
+# Requirements = (TARGET.Machine=="hengshan")
+# Requirements = (TARGET.Machine=="shanshuimeng")
+# Requirements = (TARGET.Machine=="shuitianxu")
+# Requirements = (TARGET.Machine=="tianshuisong")
+
+# 日志文件
+Log        = logs/job_$(Cluster).$(Process).log
+Output     = logs/job_$(Cluster).$(Process).out
+Error      = logs/job_$(Cluster).$(Process).err
+
+# 文件传输
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+# 作业参数（睡眠时间，单位：秒）
+Arguments = 300
+
+# 初始目录
+initialdir = /mnt/lab1/dsyan/tmp/userguide/holdGPU
+
+Queue
