@@ -19,6 +19,7 @@
 集群已在 `/mnt/net1/common/anaconda3` 安装了 conda 环境。
 
 **安装环境前必须先退出当前终端的 conda 环境：**
+
 ```bash
 conda deactivate
 ```
@@ -26,11 +27,13 @@ conda deactivate
 ### 查看可用环境
 
 查看所有在 `/mnt/net1/common/anaconda3` 下的环境：
+
 ```bash
 /mnt/net1/common/anaconda3/bin/conda run conda info -e
 ```
 
 查看 base 环境的所有安装包：
+
 ```bash
 /mnt/net1/common/anaconda3/bin/conda run --name base python -m pip list
 ```
@@ -38,6 +41,7 @@ conda deactivate
 ### 创建自己的环境
 
 建议创建自己的环境，环境名最好包含用户名：
+
 ```bash
 /mnt/net1/common/anaconda3/bin/conda create -p /mnt/net1/common/anaconda3/envs/username_env python=3.12
 ```
@@ -45,6 +49,7 @@ conda deactivate
 ### 安装 Python 包
 
 1. 首先确认包的安装位置正确：
+
 ```bash
 export PYTHONNOUSERSITE=1
 /mnt/net1/common/anaconda3/bin/conda run --name base python -m site
@@ -53,6 +58,7 @@ export PYTHONNOUSERSITE=1
 确保输出中的 `ENABLE_USER_SITE: False`。如果为 True，包会安装到用户目录下，其他机器无法访问。
 
 2. 设置环境变量并安装包：
+
 ```bash
 export PYTHONNOUSERSITE=1
 /mnt/net1/common/anaconda3/bin/conda run --name base python -m pip install xxx
@@ -69,6 +75,7 @@ export PYTHONNOUSERSITE=1
 ### 2. 创建执行脚本
 
 创建 `run.sh` 脚本，用于在集群环境中正确运行 Python 程序。记得设置执行权限：
+
 ```bash
 chmod +x run.sh
 ```
@@ -76,6 +83,7 @@ chmod +x run.sh
 ### 3. 修改提交文件
 
 修改 `test.submit` 文件中的参数：
+
 - `initialdir` - 修改为您的项目路径
 - `request_GPUs` - 如需要 GPU，设置数量
 - `request_CPUs` - 设置所需的 CPU 数量
@@ -97,6 +105,7 @@ condor_submit test.submit
 ### 5. 查看结果
 
 作业运行完成后，会在当前目录下创建 `logs` 目录，包含：
+
 - 标准输出：`logs/job_<ClusterId>.<ProcId>.out`
 - 错误输出：`logs/job_<ClusterId>.<ProcId>.err`
 - HTCondor 日志：`logs/job_<ClusterId>.log`
@@ -106,6 +115,7 @@ condor_submit test.submit
 ### 验证环境
 
 提交文件中的示例要求在 hengshan 上运行：
+
 ```
 Requirements = (TARGET.Machine=="hengshan")
 ```
@@ -115,6 +125,7 @@ Requirements = (TARGET.Machine=="hengshan")
 ### 短作业优化
 
 如果程序运行时间少于 30 分钟，启用短作业标志：
+
 ```
 +SHORT_JOB=true
 ```
@@ -122,6 +133,7 @@ Requirements = (TARGET.Machine=="hengshan")
 ### 传输文件
 
 确保在 `transfer_input_files` 中列出所有需要的文件，包括：
+
 - Python 脚本
 - 数据文件
 - 配置文件
@@ -130,20 +142,24 @@ Requirements = (TARGET.Machine=="hengshan")
 ## 故障排查
 
 1. 检查作业匹配情况：
+
 ```bash
 cq -better-analyze <jobid>
 ```
 
 2. 查看详细信息：
+
 ```bash
 cq -l <jobid>
 ```
 
 3. 查看实时输出：
+
 ```bash
 condor_tail <jobid>
 ```
 
 4. 检查 Python 路径是否正确：
+
    - 确保 `sys.path` 中的路径指向 `/mnt/net1`
    - 确保没有使用用户本地的包路径

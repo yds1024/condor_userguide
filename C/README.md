@@ -27,6 +27,7 @@ make
 ### 3. 创建提交文件
 
 修改 `job.submit` 文件中的以下参数：
+
 - `initialdir` - 修改为您的项目路径
 - `request_GPUs` - 设置所需的 GPU 数量
 - `requestMemory` - 设置所需的内存大小（MB）
@@ -47,11 +48,13 @@ condor_submit job.submit
 ### 5. 监控作业
 
 查看作业状态：
+
 ```bash
 cq
 ```
 
 查看作业详细信息：
+
 ```bash
 cq -l <jobid>
 ```
@@ -61,11 +64,13 @@ cq -l <jobid>
 ### GPU 使用规范
 
 1. **测试阶段**：在 taishan 上测试时，必须使用 GPU 6、7、8 或 9：
+
    ```cuda
    cudaSetDevice(6);  // 或 7、8、9
    ```
 
 2. **提交作业时**：必须将 GPU 设置改为 0，让 HTCondor 自动分配：
+
    ```cuda
    cudaSetDevice(0);
    ```
@@ -73,6 +78,7 @@ cq -l <jobid>
 ### 短作业优化
 
 如果您的程序运行时间少于 30 分钟，可以在 `job.submit` 中启用短作业标志：
+
 ```
 +SHORT_JOB=true
 ```
@@ -82,6 +88,7 @@ cq -l <jobid>
 ### 指定运行节点
 
 如果需要在特定节点运行，可以在 `job.submit` 中设置：
+
 ```
 Requirements = (TARGET.Machine=="taishan") || (TARGET.Machine=="huashan")
 ```
@@ -89,6 +96,7 @@ Requirements = (TARGET.Machine=="taishan") || (TARGET.Machine=="huashan")
 ### CUDA 能力要求
 
 如果程序需要特定的 CUDA 计算能力：
+
 ```
 Requirements = CUDACapability > 6.0
 ```
@@ -96,11 +104,13 @@ Requirements = CUDACapability > 6.0
 ## 故障排查
 
 如果作业无法运行，使用以下命令分析原因：
+
 ```bash
 cq -better-analyze <jobid>
 ```
 
 查看运行日志：
+
 - 标准输出：`logs/job_<ClusterId>.<ProcId>.out`
 - 错误输出：`logs/job_<ClusterId>.<ProcId>.err`
 - HTCondor 日志：`logs/job_<ClusterId>.log`

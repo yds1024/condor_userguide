@@ -1,11 +1,10 @@
-
 ## GPU 使用注意事项
 
 为了日常调试或测试，我们在 taishan 上保留了4个GPU用作调试。这意味着 taishan 的 0--5 GPU 是被纳管到 condor 集群中的，剩下的4个GPU留给你用于在Condor上进行大量参数搜索模拟之前测试你的代码。
 
-**测试阶段**：使用 GPU 6、7、8 或 9  
-**提交作业时**：必须使用 GPU 0，让 HTCondor 自动分配
+**测试阶段**：使用 GPU 6、7、8 或 9
 
+**提交作业时**：必须使用 GPU 0，HTCondor 自动分配后的 GPU 序号默认为 0
 
 ## 集群说明
 
@@ -16,11 +15,12 @@
 ### 常用命令
 
 - **查看集群资源状态**
+
   - `condor_status` - 查看集群所有机器状态
   - `condor_status -af Name Gpus` - 查看各节点可用 GPU 数量
   - `condor_status -af Name Cpus` - 查看各节点可用 CPU 数量
-
 - **作业管理**
+
   - `csub job.submit` 或 `condor_submit job.submit` - 提交作业
   - `cq` 或 `condor_q` - 查看当前用户的所有作业状态
   - `cq <username>` - 查看指定用户的作业状态
@@ -29,41 +29,39 @@
   - `condor_rm <jobid>` - 删除指定作业
   - `condor_rm -all` - 删除当前用户的所有作业
   - `condor_tail <jobid>` - 查看运行中作业的实时输出
-
 - **作业优先级调整**
+
   - `condor_prio -p +15 <jobid>` - 提高作业优先级
   - `condor_prio -p -15 <jobid>` - 降低作业优先级
-
 - **问题排查**
+
   - `cq -better-analyze <jobid>` - 分析作业与资源匹配情况
   - `condor_tail <jobid>` - 查看运行中作业的实时输出
-
 
 ## 集群硬件资源
 
 ### 计算服务器
 
-| 服务器名称           | CPU                                       | 内存         | 硬盘                                   | 显卡           | IP地址              |
-| --------------- | ----------------------------------------- | ---------- | ------------------------------------ | ------------ | ----------------- |
-| taishan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz     | 251 GiB    | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090    | 192.168.237.73    |
-| huashan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz     | 251 GiB    | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090    | 192.168.237.74    |
-| hengshan        | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz     | 251 GiB    | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090    | 192.168.237.75    |
-| ~~qianweitian~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~31 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~      | ~~2 x 3090~~ | ~~192.168.63.86~~ |
-| ~~kunweidi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~      | ~~2 x 3090~~ | ~~192.168.63.87~~ |
-| ~~shuileizhun~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~      | ~~2 x 3090~~ | ~~192.168.63.88~~ |
-| shanshuimeng    | Intel(R) Xeon(R) Silver 4214 @ 2.20GHz    | 125 GiB    | sda: 223.6G + sdb: 1.7T              | 4 x 3090     | 192.168.81.17     |
-| shuitianxu      | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz      | 125 GiB    | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 4090     | 192.168.81.18     |
-| tianshuisong    | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz      | 125 GiB    | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090     | 192.168.81.14     |
-| ~~shuidibi~~        | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~     | ~~62 GiB~~     | ~~nvme0n1: 931.5G~~                      | ~~4 x 3090~~     | ~~192.168.81.15~~     |
-| ~~dishuishi~~       | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~     | ~~62 GiB~~     | ~~nvme0n1: 931.5G~~                      | ~~4 x 3090~~     | ~~192.168.81.16~~     |
-| fengtianxiaoxu  | —                                         | —          | —                                    | —            | 192.168.81.15     |
-| tianzelu        | —                                         | —          | —                                    | —            | 192.168.81.16     |
-|                 |                                           |            |                                      |              |                   |
-|                 |                                           |            |                                      |              |                   |
+| 服务器名称       | CPU                                        | 内存        | 硬盘                                 | 显卡          | IP地址             |
+| ---------------- | ------------------------------------------ | ----------- | ------------------------------------ | ------------- | ------------------ |
+| taishan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.73     |
+| huashan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.74     |
+| hengshan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.75     |
+| ~~qianweitian~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~31 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.86~~ |
+| ~~kunweidi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.87~~ |
+| ~~shuileizhun~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.88~~ |
+| shanshuimeng     | Intel(R) Xeon(R) Silver 4214 @ 2.20GHz     | 125 GiB     | sda: 223.6G + sdb: 1.7T              | 4 x 3090      | 192.168.81.17      |
+| shuitianxu       | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 4090      | 192.168.81.18      |
+| tianshuisong     | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090      | 192.168.81.14      |
+| ~~shuidibi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.15~~ |
+| ~~dishuishi~~   | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.16~~ |
+| fengtianxiaoxu   | —                                         | —          | —                                   | —            | 192.168.81.15      |
+| tianzelu         | —                                         | —          | —                                   | —            | 192.168.81.16      |
 
 ### 存储服务器
 
 192.168.81.15:/mnt/lab  174T  /mnt/net1
+
 192.168.81.16:/mnt/lab  174T  /mnt/net0
 
 集群的每台计算服务器都可以访问这两台共享存储服务器，且挂载的目录相同（/mnt/net*），可以将 python 环境装到共享目录下，从而保证每台服务器的 python 环境一致。
@@ -71,9 +69,10 @@
 ## 使用规范
 
 我们的集群使用 Htcondor 来管理所有用户的任务和硬件资源。
+
 所有用户都统一在任务提交节点：taishan 提交任务，所提交的任务会被 Htcondor 分发到集群中的所有机器。
 
-> 注意：\
+> 注意：
 > taishan 上有4张显卡(6,7,8,9)是用于调试程序的，这意味着 taishan 的 0--5 GPU 是被纳管到 condor 集群中的。
 > 所以所有用户都不被允许在 0--5 GPU 进行调试，否则会与 condor 集群有资源冲突。
 
@@ -101,16 +100,19 @@ HTCondor 支持多种编程语言和框架。以下是常见的使用场景：
 默认优先级是0，数字越大优先级越高。
 
 ## 排查问题
+
 检查作业要求匹配：
+
 ```
 cq -better-analyze 566396.0
 ```
 
-使用condor_q命令详细查看： 
+使用condor_q命令详细查看：
+
 ```
 cq -l 565618.0
 ```
 
-
 在每台机器上的/var/log/condor下有 job 目录
+
 excutor中查看job的详细信息：/var/log/condor/StarterLog.slot*

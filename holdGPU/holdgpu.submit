@@ -7,7 +7,7 @@ request_CPUs = 1
 requestMemory = 1024
 
 # 指定运行的机器（修改为您想要的机器名）
-Requirements = (TARGET.Machine=="huashan")
+Requirements = (TARGET.Machine=="taishan")
 
 # 可选的机器列表：
 # Requirements = (TARGET.Machine=="taishan")

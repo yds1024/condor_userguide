@@ -16,10 +16,11 @@
 编辑 `holdgpu.submit` 文件，指定要运行的机器：
 
 ```
-Requirements = (TARGET.Machine=="huashan")
+Requirements = (TARGET.Machine=="taishan")
 ```
 
 可选的机器包括：
+
 - taishan
 - huashan  
 - hengshan
@@ -57,10 +58,10 @@ condor_q -l <jobid> | grep AssignedGPUs
 ### 4. 查看输出
 
 作业运行后，可以在 logs 目录下查看：
+
 - `job_*.out` - 标准输出，包含 GPU 信息
 - `job_*.err` - 错误输出
 - `job_*.log` - HTCondor 日志
-
 
 ## 工具脚本说明
 
@@ -73,6 +74,7 @@ condor_q -l <jobid> | grep AssignedGPUs
 ```
 
 功能：
+
 - 显示作业运行的机器和时间
 - 显示 CUDA_VISIBLE_DEVICES 环境变量
 - 自动检测 GPU 分配格式（UUID 或数字索引）
@@ -82,6 +84,7 @@ condor_q -l <jobid> | grep AssignedGPUs
 - 占用 GPU 指定时间
 
 输出示例：
+
 ```
 GPU 映射信息:
 --------------
