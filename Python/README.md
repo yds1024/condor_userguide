@@ -29,7 +29,7 @@ conda deactivate
 查看所有在 `/mnt/net1/common/anaconda3` 下的环境：
 
 ```bash
-/mnt/net1/common/anaconda3/bin/conda run conda info -e
+/mnt/net1/common/anaconda3/bin/conda info -e
 ```
 
 查看 base 环境的所有安装包：
