@@ -66,6 +66,14 @@
 
 集群的每台计算服务器都可以访问这两台共享存储服务器，且挂载的目录相同（/mnt/net*），可以将 python 环境装到共享目录下，从而保证每台服务器的 python 环境一致。
 
+## 机器位置
+
+rack-B-3F-D32-07 26/22-27/21   fengtianxiaoxu
+rack-B-3F-D32-08 10/38-14/34   tianshuisong
+rack-B-3F-D32-09 09/39-13/35   shuitianxu
+rack-B-3F-D32-09 08/40-04/44   shanshuimeng
+
+
 ## 使用规范
 
 我们的集群使用 Htcondor 来管理所有用户的任务和硬件资源。
