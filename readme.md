@@ -69,8 +69,11 @@
 ## 机器位置
 
 rack-B-3F-D32-07 26/22-27/21   fengtianxiaoxu
+
 rack-B-3F-D32-08 10/38-14/34   tianshuisong
+
 rack-B-3F-D32-09 09/39-13/35   shuitianxu
+
 rack-B-3F-D32-09 08/40-04/44   shanshuimeng
 
 
