@@ -17,12 +17,16 @@
 - **查看集群资源状态**
 
   - `condor_status` - 查看集群所有机器状态
-  - `condor_status -af Name Gpus` - 查看各节点可用 GPU 数量
+  - `condor_status -gpus -compact` - 查看各节点纳管的 GPU 总数和当前空闲 GPU 数量
+  - `condor_status -gpus -compact | awk 'NR==1 || ($4+0)>0'` - 只查看当前有空闲 GPU 的机器
+  - `condor_status -gpus -compact | awk 'NR==1 || $1=="taishan"'` - 只查看 `taishan` 的 GPU 总数和空闲数量
+  - `condor_status -gpus | grep taishan` - 查看 `taishan` 上各个 GPU slot 的详细占用情况
   - `condor_status -af Name Cpus` - 查看各节点可用 CPU 数量
 - **作业管理**
 
   - `csub job.submit` 或 `condor_submit job.submit` - 提交作业
   - `cq` 或 `condor_q` - 查看当前用户的所有作业状态
+  - `condor_q -global -allusers` - 查看整个 Condor pool 中所有 schedd 的作业；当任务是在 `huashan` 提交、但你在 `taishan` 上排查时，使用这条命令
   - `cq <username>` - 查看指定用户的作业状态
   - `cq -l <jobid>` - 查看作业详细信息
   - `cq -run` - 查看正在运行的作业及其分配的机器
@@ -42,21 +46,24 @@
 
 ### 计算服务器
 
-| 服务器名称       | CPU                                        | 内存        | 硬盘                                 | 显卡          | IP地址             |
-| ---------------- | ------------------------------------------ | ----------- | ------------------------------------ | ------------- | ------------------ |
-| taishan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.73     |
-| huashan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.74     |
-| hengshan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.237.75     |
-| ~~qianweitian~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~31 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.86~~ |
-| ~~kunweidi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.87~~ |
-| ~~shuileizhun~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.88~~ |
-| shanshuimeng     | Intel(R) Xeon(R) Silver 4214 @ 2.20GHz     | 125 GiB     | sda: 223.6G + sdb: 1.7T              | 4 x 3090      | 192.168.81.17      |
-| shuitianxu       | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 4090      | 192.168.81.18      |
-| tianshuisong     | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090      | 192.168.81.14      |
-| ~~shuidibi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.15~~ |
-| ~~dishuishi~~   | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.16~~ |
-| fengtianxiaoxu   | —                                         | —          | —                                   | —            | 192.168.81.15      |
-| tianzelu         | —                                         | —          | —                                   | —            | 192.168.81.16      |
+注：`CPU核心数` 为物理核心数，不是超线程数。
+
+| 服务器名称       | CPU                                        | CPU核心数 | 内存        | 硬盘                                 | 显卡          | IP地址             |
+| ---------------- | ------------------------------------------ | --------- | ----------- | ------------------------------------ | ------------- | ------------------ |
+| taishan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.6       |
+| huashan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.7       |
+| hengshan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.8      |
+| ~~qianweitian~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~31 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.86~~ |
+| ~~kunweidi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.87~~ |
+| ~~shuileizhun~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.88~~ |
+| shanshuimeng     | Intel(R) Xeon(R) Silver 4214 @ 2.20GHz     | 24        | 125 GiB     | sda: 223.6G + sdb: 1.7T              | 4 x 3090      | 192.168.81.17      |
+| shuitianxu       | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 8         | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 4090      | 192.168.81.18      |
+| tianshuisong     | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 8         | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090      | 192.168.81.14      |
+| ~~shuidibi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.15~~ |
+| ~~dishuishi~~   | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.16~~ |
+| ditiantai        | AMD EPYC 7513 32-Core Processor            | 64        | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 3 x 4090      | 192.168.81.32      |
+| fengtianxiaoxu   | Intel(R) Xeon(R) Silver 4314 @ 2.40GHz     | 32        | —           | —                                   | —            | 192.168.81.15      |
+| tianzelu         | —                                          | —         | —           | —                                   | —            | 192.168.81.16      |
 
 ### 存储服务器
 
@@ -76,6 +83,7 @@ rack-B-3F-D32-09 09/39-13/35   shuitianxu
 
 rack-B-3F-D32-09 08/40-04/44   shanshuimeng
 
+rack-B-3F-D32-B-07柜2U-5U     ditiantai
 
 ## 使用规范
 
@@ -90,6 +98,17 @@ rack-B-3F-D32-09 08/40-04/44   shanshuimeng
 ## Condor 系统
 
 [condor 用户手册](https://htcondor.readthedocs.io/en/latest/users-manual/index.html)
+
+### 查看 Condor 中的 GPU
+
+在提交节点 `taishan` 上：
+
+```bash
+condor_status -gpus -compact                      # 查看所有机器 GPU；FreGPU 为空闲数，TotGPUs 为总数
+condor_status -gpus -compact | awk 'NR==1 || $1=="taishan"'   # 只看 taishan
+condor_status -gpus -compact | awk 'NR==1 || ($4+0)>0'        # 只看当前有空闲 GPU 的机器
+condor_status -gpus | grep taishan                             # 查看 taishan 各 slot 的 GPU 占用明细
+```
 
 ### 运行示例
 
@@ -122,6 +141,12 @@ cq -better-analyze 566396.0
 
 ```
 cq -l 565618.0
+```
+
+如果需要在 `taishan` 上查看整个 pool 里所有 schedd 的任务，例如排查 `huashan` 上提交的作业，可以使用：
+
+```
+condor_q -global -allusers
 ```
 
 在每台机器上的/var/log/condor下有 job 目录
