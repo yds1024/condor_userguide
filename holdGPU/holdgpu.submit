@@ -4,7 +4,7 @@ executable = holdgpu.sh
 # 请求资源
 request_GPUs = 1
 request_CPUs = 1
-requestMemory = 1024
+requestMemory = 3024
 
 # 指定运行的机器（修改为您想要的机器名）
 Requirements = (TARGET.Machine=="taishan")

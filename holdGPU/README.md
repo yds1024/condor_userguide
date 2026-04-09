@@ -48,6 +48,9 @@ condor_q -l <jobid> | grep Log
 # 查看作业状态
 condor_q
 
+# 在 taishan 上查看整个 pool 的所有任务，适合排查在 huashan 等机器提交的作业
+condor_q -global -allusers
+
 # 查看作业详细信息，包括分配的 GPU
 condor_q -l <jobid> | grep GPU
 
@@ -96,5 +99,4 @@ huashan 的所有 GPU:
   [2] GPU-81455554
   ...
 ```
-
 
