@@ -61,7 +61,7 @@
 | tianshuisong     | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 8         | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090      | 192.168.81.14      |
 | ~~shuidibi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.15~~ |
 | ~~dishuishi~~   | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.16~~ |
-| ditiantai        | AMD EPYC 7513 32-Core Processor            | 64        | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 3 x 4090      | 192.168.81.32      |
+| ditiantai        | AMD EPYC 7513 32-Core Processor            | 64        | 125 GiB     | sda: 893.8G + sdb: 1.7T              | 3 x 4090      | 192.168.81.32      |
 | fengtianxiaoxu   | Intel(R) Xeon(R) Silver 4314 @ 2.40GHz     | 32        | —           | —                                   | —            | 192.168.81.15      |
 | tianzelu         | —                                          | —         | —           | —                                   | —            | 192.168.81.16      |
 
@@ -72,6 +72,21 @@
 192.168.81.16:/mnt/lab  174T  /mnt/net0
 
 集群的每台计算服务器都可以访问这两台共享存储服务器，且挂载的目录相同（/mnt/net*），可以将 python 环境装到共享目录下，从而保证每台服务器的 python 环境一致。
+
+### 硬盘编码与挂载点
+
+
+| 服务器 | 硬盘编码 | 挂载点 |
+| ------ | -------- | ------ |
+| taishan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb1: /mnt/lab`；`sdc: /mnt/lab1` |
+| huashan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1` |
+| hengshan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1` |
+| shanshuimeng | `sda / sdb` | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab` |
+| shuitianxu | `sda / sdb / sdc` | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab`；`sdc1: /mnt/lab1` |
+| tianshuisong | 未采集 |  |
+| ditiantai | `sda / sdb` | `sda: /boot/efi + /`；`sdb1: /mnt/lab` |
+| fengtianxiaoxu | `nvme0n1 / sda-sdl` | `nvme0n1: /boot/efi + /boot + /`；`vg_data/lv_data: /mnt/lab` |
+| tianzelu | 未采集 |  |
 
 ## 机器位置
 
