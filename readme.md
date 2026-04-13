@@ -17,10 +17,8 @@
 - **查看集群资源状态**
 
   - `condor_status` - 查看集群所有机器状态
+  - `condor_status -gpus ` - 查看 GPU slot 的详细占用情况
   - `condor_status -gpus -compact` - 查看各节点纳管的 GPU 总数和当前空闲 GPU 数量
-  - `condor_status -gpus -compact | awk 'NR==1 || ($4+0)>0'` - 只查看当前有空闲 GPU 的机器
-  - `condor_status -gpus -compact | awk 'NR==1 || $1=="taishan"'` - 只查看 `taishan` 的 GPU 总数和空闲数量
-  - `condor_status -gpus | grep taishan` - 查看 `taishan` 上各个 GPU slot 的详细占用情况
   - `condor_status -af Name Cpus` - 查看各节点可用 CPU 数量
 - **作业管理**
 
