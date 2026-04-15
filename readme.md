@@ -42,26 +42,26 @@
 
 ## 集群硬件资源
 
-### 计算服务器
+### 服务器简介
 
-注：`CPU核心数` 为物理核心数，不是超线程数。
+注：`配置` 列中的核心数为物理核心数，不是超线程数。
 
-| 服务器名称       | CPU                                        | CPU核心数 | 内存        | 硬盘                                 | 显卡          | IP地址             |
-| ---------------- | ------------------------------------------ | --------- | ----------- | ------------------------------------ | ------------- | ------------------ |
-| taishan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.6       |
-| huashan          | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.7       |
-| hengshan         | Intel(R) Xeon(R) Gold 6226R @ 2.90GHz      | 32        | 251 GiB     | sda: 893.3G + sdb: 9.1T + sdc: 32.8T | 10 x 3090     | 192.168.81.8      |
-| ~~qianweitian~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~31 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.86~~ |
-| ~~kunweidi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.87~~ |
-| ~~shuileizhun~~ | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~sda: 3.6T + nvme0n1: 953.9G~~     | ~~2 x 3090~~ | ~~192.168.63.88~~ |
-| shanshuimeng     | Intel(R) Xeon(R) Silver 4214 @ 2.20GHz     | 24        | 125 GiB     | sda: 223.6G + sdb: 1.7T              | 4 x 3090      | 192.168.81.17      |
-| shuitianxu       | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 8         | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 4090      | 192.168.81.18      |
-| tianshuisong     | Intel(R) Xeon(R) Gold 5122 @ 3.60GHz       | 8         | 125 GiB     | sda: 894.3G + sdb: 1.8T + sdc: 1.8T  | 4 x 3090      | 192.168.81.14      |
-| ~~shuidibi~~    | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.15~~ |
-| ~~dishuishi~~   | ~~Intel(R) Core(TM) i9-10900X @ 3.70GHz~~ | ~~10~~    | ~~62 GiB~~ | ~~nvme0n1: 931.5G~~                 | ~~4 x 3090~~ | ~~192.168.81.16~~ |
-| ditiantai        | AMD EPYC 7513 32-Core Processor            | 64        | 125 GiB     | sda: 893.8G + sdb: 1.7T              | 3 x 4090      | 192.168.81.32      |
-| fengtianxiaoxu   | Intel(R) Xeon(R) Silver 4314 @ 2.40GHz     | 32        | —           | —                                   | —            | 192.168.81.15      |
-| tianzelu         | —                                          | —         | —           | —                                   | —            | 192.168.81.16      |
+| 服务器 / IP                  | 配置                                      | 型号 / SN                                | 硬盘编码（含大小）                           | 挂载点                                                      | 位置                           |
+| ---------------------------- | ----------------------------------------- | ---------------------------------------- | -------------------------------------------- | ----------------------------------------------------------- | ------------------------------ |
+| taishan / 192.168.81.6       | Xeon Gold 6226R / 32C / 251 GiB / 10 x 3090 | —                                        | `sda: 893.3G / sdb: 9.1T / sdc: 32.8T`       | `sda: /boot + /`；`sdb1: /mnt/lab`；`sdc: /mnt/lab1`        | —                              |
+| huashan / 192.168.81.7       | Xeon Gold 6226R / 32C / 251 GiB / 10 x 3090 | —                                        | `sda: 893.3G / sdb: 9.1T / sdc: 32.8T`       | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1`         | —                              |
+| hengshan / 192.168.81.8      | Xeon Gold 6226R / 32C / 251 GiB / 10 x 3090 | —                                        | `sda: 893.3G / sdb: 9.1T / sdc: 32.8T`       | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1`         | —                              |
+| ~~qianweitian / 192.168.63.86~~ | ~~i9-10900X / 10C / 31 GiB / 2 x 3090~~    | ~~—~~                                    | ~~`sda: 3.6T / nvme0n1: 953.9G`~~            | ~~—~~                                                       | ~~—~~                          |
+| ~~kunweidi / 192.168.63.87~~ | ~~i9-10900X / 10C / 62 GiB / 2 x 3090~~    | ~~—~~                                    | ~~`sda: 3.6T / nvme0n1: 953.9G`~~            | ~~—~~                                                       | ~~—~~                          |
+| ~~shuileizhun / 192.168.63.88~~ | ~~i9-10900X / 10C / 62 GiB / 2 x 3090~~    | ~~—~~                                    | ~~`sda: 3.6T / nvme0n1: 953.9G`~~            | ~~—~~                                                       | ~~—~~                          |
+| shanshuimeng / 192.168.81.17 | Xeon Silver 4214 / 24C / 125 GiB / 4 x 3090 | —                                        | `sda: 223.6G / sdb: 1.7T`                    | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab`              | rack-B-3F-D32-09 08/40-04/44   |
+| shuitianxu / 192.168.81.18   | Xeon Gold 5122 / 8C / 125 GiB / 4 x 4090   | —                                        | `sda: 894.3G / sdb: 1.8T / sdc: 1.8T`        | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab`；`sdc1: /mnt/lab1` | rack-B-3F-D32-09 09/39-13/35   |
+| tianshuisong / 192.168.81.14 | Xeon Gold 5122 / 8C / 125 GiB / 4 x 3090   | —                                        | `sda: 894.3G / sdb: 1.8T / sdc: 1.8T`        | —                                                           | rack-B-3F-D32-08 10/38-14/34   |
+| ~~shuidibi / 192.168.81.15~~ | ~~i9-10900X / 10C / 62 GiB / 4 x 3090~~    | ~~—~~                                    | ~~`nvme0n1: 931.5G`~~                        | ~~—~~                                                       | ~~—~~                          |
+| ~~dishuishi / 192.168.81.16~~ | ~~i9-10900X / 10C / 62 GiB / 4 x 3090~~    | ~~—~~                                    | ~~`nvme0n1: 931.5G`~~                        | ~~—~~                                                       | ~~—~~                          |
+| ditiantai / 192.168.81.32    | EPYC 7513 / 64C / 125 GiB / 3 x 4090       | 赋创 FG4812T-A3 / 80102086T25C021245     | `sda: 893.8G / sdb: 1.7T`                    | `sda: /boot/efi + /`；`sdb1: /mnt/lab`                      | rack-B-3F-D32-B-07柜2U-5U      |
+| fengtianxiaoxu / 192.168.81.15 | Xeon Silver 4314 / 32C                     | —                                        | `nvme0n1 / sda-sdl（大小未采集）`            | `nvme0n1: /boot/efi + /boot + /`；`vg_data/lv_data: /mnt/lab` | rack-B-3F-D32-07 26/22-27/21   |
+| tianzelu / 192.168.81.16     | —                                         | —                                        | 未采集                                       | —                                                           | —                              |
 
 ### 存储服务器
 
@@ -70,33 +70,6 @@
 192.168.81.16:/mnt/lab  174T  /mnt/net0
 
 集群的每台计算服务器都可以访问这两台共享存储服务器，且挂载的目录相同（/mnt/net*），可以将 python 环境装到共享目录下，从而保证每台服务器的 python 环境一致。
-
-### 硬盘编码与挂载点
-
-
-| 服务器 | 硬盘编码 | 挂载点 |
-| ------ | -------- | ------ |
-| taishan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb1: /mnt/lab`；`sdc: /mnt/lab1` |
-| huashan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1` |
-| hengshan | `sda / sdb / sdc` | `sda: /boot + /`；`sdb: /mnt/lab`；`sdc: /mnt/lab1` |
-| shanshuimeng | `sda / sdb` | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab` |
-| shuitianxu | `sda / sdb / sdc` | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab`；`sdc1: /mnt/lab1` |
-| tianshuisong | 未采集 |  |
-| ditiantai | `sda / sdb` | `sda: /boot/efi + /`；`sdb1: /mnt/lab` |
-| fengtianxiaoxu | `nvme0n1 / sda-sdl` | `nvme0n1: /boot/efi + /boot + /`；`vg_data/lv_data: /mnt/lab` |
-| tianzelu | 未采集 |  |
-
-## 机器位置
-
-rack-B-3F-D32-07 26/22-27/21   fengtianxiaoxu
-
-rack-B-3F-D32-08 10/38-14/34   tianshuisong
-
-rack-B-3F-D32-09 09/39-13/35   shuitianxu
-
-rack-B-3F-D32-09 08/40-04/44   shanshuimeng
-
-rack-B-3F-D32-B-07柜2U-5U     ditiantai
 
 ## 使用规范
 
@@ -112,16 +85,11 @@ rack-B-3F-D32-B-07柜2U-5U     ditiantai
 
 [condor 用户手册](https://htcondor.readthedocs.io/en/latest/users-manual/index.html)
 
-### 查看 Condor 中的 GPU
+### 提交资源说明
 
-在提交节点 `taishan` 上：
-
-```bash
-condor_status -gpus -compact                      # 查看所有机器 GPU；FreGPU 为空闲数，TotGPUs 为总数
-condor_status -gpus -compact | awk 'NR==1 || $1=="taishan"'   # 只看 taishan
-condor_status -gpus -compact | awk 'NR==1 || ($4+0)>0'        # 只看当前有空闲 GPU 的机器
-condor_status -gpus | grep taishan                             # 查看 taishan 各 slot 的 GPU 占用明细
-```
+- 如果是纯 CPU 任务，不使用 GPU，需要把 submit 文件中的 `request_GPUs = 1` 去掉。
+- 集群当前默认资源配比是 `1 GPU 搭配 2 CPU`。
+- 如果你需要 `1 GPU` 搭配更多 CPU，请联系我，可以单独给你配置。
 
 ### 运行示例
 
