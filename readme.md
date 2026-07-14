@@ -62,7 +62,7 @@ taishan 的 GPU 分为两类：
 | shuitianxu / 192.168.81.18   | Xeon Gold 5122 / 8C / 125 GiB / 4 x 4090   | —                                        | `sda: 894.3G / sdb: 1.8T / sdc: 1.8T`        | `sda: /boot/efi + /boot + /`；`sdb1: /mnt/lab`；`sdc1: /mnt/lab1` | rack-B-3F-D32-09 09/39-13/35   |
 | tianshuisong / 192.168.81.14 | Xeon Gold 5122 / 8C / 125 GiB / 4 x 3090   | —                                        | `sda: 894.3G / sdb: 1.8T / sdc: 1.8T`        | —                                                           | rack-B-3F-D32-08 10/38-14/34   |
 | ditiantai / 192.168.81.32    | EPYC 7513 / 64C / 125 GiB / 3 x 4090       | 赋创 FG4812T-A3 / 80102086T25C021245     | `sda: 893.8G / sdb: 1.7T`                    | `sda: /boot/efi + /`；`sdb1: /mnt/lab`                      | rack-B-3F-D32-B-07柜2U-5U      |
-| fengtianxiaoxu / 192.168.81.15 | Xeon Silver 4314 / 32C                     | — / W99012406002226                       | `nvme0n1 / sda-sdl（大小未采集）`            | `nvme0n1: /boot/efi + /boot + /`；`vg_data/lv_data: /mnt/lab` | rack-B-3F-D32-07 26/22-27/21   |
+| fengtianxiaoxu / 192.168.81.15 | Xeon Silver 4314 / 32C / 1 x 4090          | 五舟 S627G4 / W99012406002226             | `nvme0n1 / sda-sdl（大小未采集）`            | `nvme0n1: /boot/efi + /boot + /`；`vg_data/lv_data: /mnt/lab` | rack-B-3F-D32-07 26/22-27/21   |
 | tianzelu / 192.168.81.16     | —                                         | —                                        | 未采集                                       | —                                                           | —                              |
 
 ### 历史机器
